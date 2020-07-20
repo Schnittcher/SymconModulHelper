@@ -28,7 +28,9 @@ trait DebugHelper
     protected function SendDebug($Message, $Data, $Format)
     {
         if (is_array($Data)) {
-            if (count($Data) > 25) {
+            if (count($Data) == 0) {
+                $this->SendDebug($Message, '[EMPTY]', 0);
+            } elseif (count($Data) > 25) {
                 $this->SendDebug($Message, array_slice($Data, 0, 20), 0);
                 $this->SendDebug($Message . ':CUT', '-------------CUT-----------------', 0);
                 $this->SendDebug($Message, array_slice($Data, -5, null, true), 0);
