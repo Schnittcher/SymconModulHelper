@@ -21,7 +21,7 @@ trait BufferHelper
      * Wert einer Eigenschaft aus den InstanceBuffer lesen.
      *
      * @access public
-     * @param string $name Propertyname
+     * @param string $name PropertyName
      * @return mixed Value of Name
      */
     public function __get($name)
@@ -40,7 +40,7 @@ trait BufferHelper
      * Wert einer Eigenschaft in den InstanceBuffer schreiben.
      *
      * @access public
-     * @param string $name Propertyname
+     * @param string $name PropertyName
      * @param mixed Value of Name
      */
     public function __set($name, $value)

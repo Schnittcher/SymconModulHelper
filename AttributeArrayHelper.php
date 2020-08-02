@@ -12,7 +12,7 @@ trait AttributeArrayHelper
      * @access protected
      * @param string $name Attributname
      * @param array $Value Standardwert des Attribut
-     * @param int $Size Anzahl der zu verwendenen String Attribute
+     * @param int $Size Anzahl der zu verwendeten String Attribute
      */
     protected function RegisterAttributeArray($name, $Value, $Size = 0)
     {

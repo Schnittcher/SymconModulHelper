@@ -13,7 +13,7 @@
  */
 
 /**
- * Biete Funktionen um Thread-Safe auf Objekte zuzugrifen.
+ * Biete Funktionen um auf Objekte Thread-Safe zuzugreifen.
  */
 trait Semaphore
 {

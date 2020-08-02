@@ -8,7 +8,7 @@ trait UTF8Coder
     /**
      * Führt eine UTF8-Dekodierung für einen String oder ein Objekt durch (rekursiv).
      *
-     * @param string|object|array &$item Zu dekodierene Daten.
+     * @param string|object|array &$item Zu dekodierende Daten.
      */
     protected function DecodeUTF8(&$item)
     {
@@ -26,9 +26,9 @@ trait UTF8Coder
     }
 
     /**
-     * Führt eine UTF8-Enkodierung für einen String, ein Array oder ein Objekt durch (rekursiv).
+     * Führt eine UTF8-Kodierung für einen String, ein Array oder ein Objekt durch (rekursiv).
      *
-     * @param string|object|array &$item Zu Enkodierene Daten.
+     * @param string|object|array &$item Zu Enkodierende Daten.
      */
     protected function EncodeUTF8(&$item)
     {
