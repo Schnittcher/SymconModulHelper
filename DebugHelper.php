@@ -40,6 +40,9 @@ trait DebugHelper
                 }
             }
         } elseif (is_object($Data)) {
+            if (count(get_object_vars($Data)) == 0) {
+                $this->SendDebug($Message, '[EMPTY]', 0);
+            }
             foreach ($Data as $Key => $DebugData) {
                 $this->SendDebug($Message . '->' . $Key, $DebugData, 0);
             }
