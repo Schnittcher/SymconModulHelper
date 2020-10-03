@@ -27,7 +27,6 @@ trait InstanceStatus
     {
         switch ($Message) {
             case FM_CONNECT:
-            case IM_CHANGESETTINGS:
                 $this->RegisterParent();
                 if ($this->HasActiveParent()) {
                     $State = IS_ACTIVE;
@@ -36,6 +35,7 @@ trait InstanceStatus
                 }
 
                 break;
+            case IM_CHANGESETTINGS:
             case FM_DISCONNECT:
                 $this->RegisterParent();
                 $State = IS_INACTIVE;
