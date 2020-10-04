@@ -33,14 +33,20 @@ trait InstanceStatus
                 } else {
                     $State = IS_INACTIVE;
                 }
-
                 break;
             case IM_CHANGESETTINGS:
+                if ($SenderID != $this->ParentID) {
+                    return;
+                }
+                // no break
             case FM_DISCONNECT:
                 $this->RegisterParent();
                 $State = IS_INACTIVE;
                 break;
             case IM_CHANGESTATUS:
+                if ($SenderID != $this->ParentID) {
+                    return;
+                }
                 $State = $Data[0];
                 break;
             default:
