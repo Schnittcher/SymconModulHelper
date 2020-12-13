@@ -26,6 +26,11 @@ trait InstanceStatus
     protected function MessageSink($TimeStamp, $SenderID, $Message, $Data)
     {
         switch ($Message) {
+            case IM_CHANGESETTINGS:
+                if ($SenderID != $this->ParentID) {
+                    return;
+                }
+                // no break
             case FM_CONNECT:
                 $this->RegisterParent();
                 if ($this->HasActiveParent()) {
@@ -34,11 +39,6 @@ trait InstanceStatus
                     $State = IS_INACTIVE;
                 }
                 break;
-            case IM_CHANGESETTINGS:
-                if ($SenderID != $this->ParentID) {
-                    return;
-                }
-                // no break
             case FM_DISCONNECT:
                 $this->RegisterParent();
                 $State = IS_INACTIVE;
