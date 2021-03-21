@@ -63,6 +63,19 @@ trait VariableProfileHelper
     }
 
     /**
+     * Erstellt und konfiguriert ein VariablenProfil für den Typ string mit Assoziationen.
+     *
+     * @param string $Name         Name des Profils.
+     * @param string $Icon         Name des Icon.
+     * @param string $Prefix       Prefix für die Darstellung.
+     * @param string $Suffix       Suffix für die Darstellung.
+     * @param array  $Associations Assoziationen der Werte als Array.
+     */
+    protected function RegisterProfileStringEx($Name, $Icon, $Prefix, $Suffix, $Associations)
+    {
+        $this->RegisterProfileEx(VARIABLETYPE_STRING, $Name, $Icon, $Prefix, $Suffix, $Associations);
+    }
+    /**
      * Erstellt und konfiguriert ein VariablenProfil für den Typ bool.
      *
      * @param string $Name   Name des Profils.
@@ -125,7 +138,7 @@ trait VariableProfileHelper
         } else {
             $MinValue = $Associations[0][0];
             if ($MaxValue == -1) {
-                    $MaxValue = $Associations[count($Associations) - 1][0];
+                $MaxValue = $Associations[count($Associations) - 1][0];
             }
         }
         $this->RegisterProfile($VarTyp, $Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize, $Digits);
@@ -167,11 +180,13 @@ trait VariableProfileHelper
 
         IPS_SetVariableProfileIcon($Name, $Icon);
         IPS_SetVariableProfileText($Name, $Prefix, $Suffix);
-        if ($VarTyp != VARIABLETYPE_BOOLEAN) {
-            IPS_SetVariableProfileValues($Name, $MinValue, $MaxValue, $StepSize);
-        }
-        if ($VarTyp == VARIABLETYPE_FLOAT) {
-            IPS_SetVariableProfileDigits($Name, $Digits);
+        switch ($VarTyp) {
+            case VARIABLETYPE_FLOAT:
+                IPS_SetVariableProfileDigits($Name, $Digits);
+                // no break
+            case VARIABLETYPE_INTEGER:
+                IPS_SetVariableProfileValues($Name, $MinValue, $MaxValue, $StepSize);
+                break;
         }
     }
 
