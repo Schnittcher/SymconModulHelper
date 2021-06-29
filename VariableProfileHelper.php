@@ -174,7 +174,7 @@ trait VariableProfileHelper
         } else {
             $profile = IPS_GetVariableProfile($Name);
             if ($profile['ProfileType'] != $VarTyp) {
-                throw new Exception('Variable profile type does not match for profile ' . $Name, E_USER_WARNING);
+                throw new \Exception('Variable profile type does not match for profile ' . $Name, E_USER_WARNING);
             }
         }
 
