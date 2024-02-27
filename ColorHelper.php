@@ -71,6 +71,48 @@ trait ColorHelper
         return $color;
     }
 
+    //Neuer Test
+    protected function convertXYToHex($x, $y, $bri = 255)
+    {
+        // Calculate XYZ
+        $z = 1.0 - $x - $y;
+        $xyz['y'] = $bri / 255;
+        //Temp fix for division by zero
+        if ($y == 0) {
+            $y = 0.001;
+        }
+        $xyz['x'] = ($xyz['y'] / $y) * $x;
+        $xyz['z'] = ($xyz['y'] / $y) * $z;
+
+        // Convert to RGB using Wide RGB D65 conversion
+        $color['red'] = $xyz['x'] * 1.656492 - $xyz['y'] * 0.354851 - $xyz['z'] * 0.255038;
+        $color['green'] = -$xyz['x'] * 0.707196 + $xyz['y'] * 1.655397 + $xyz['z'] * 0.036152;
+        $color['blue'] = $xyz['x'] * 0.051713 - $xyz['y'] * 0.121364 + $xyz['z'] * 1.011530;
+
+        $maxValue = 0;
+        foreach ($color as $key => $normalized) {
+            // Apply reverse gamma correction
+            if ($normalized <= 0.0031308) {
+                $color[$key] = 12.92 * $normalized;
+            } else {
+                $color[$key] = (1.0 + 0.055) * ($normalized ** (1.0 / 2.4)) - 0.055;
+            }
+            $color[$key] = max(0, $color[$key]);
+            if ($maxValue < $color[$key]) {
+                $maxValue = $color[$key];
+            }
+        }
+        foreach ($color as $key => $normalized) {
+            if ($maxValue > 1) {
+                $color[$key] /= $maxValue;
+            }
+            // Scale back from a maximum of 1 to a maximum of 255
+            $color[$key] = round($color[$key] * 255);
+        }
+        $color = sprintf('#%02x%02x%02x', $color['red'], $color['green'], $color['blue']);
+        return $color;
+    }
+
     protected function HUE2RGB($p, $q, $t)
     {
         if ($t < 0) {
